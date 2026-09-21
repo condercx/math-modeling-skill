@@ -137,3 +137,19 @@ cp "<SKILL_ROOT>/使用指南.md" "<PROJECT_ROOT>/使用指南.md"
 - 引用可由 OpenAlex、AnySearch 或原始出版页面追溯。
 - 论文已按目标竞赛当届官方规则配置，篇幅目标已经确认，公式/非空图表数量与全部子问题图覆盖经过检查，图表编号与正文引用连续，参考文献与正文引用双向对应。Word 分支还须通过原生 OMML、DOCX 结构、转换警告门禁和渲染页数检查；LaTeX 分支还须通过环境诊断、真实编译、日志、权威资源—源码—PDF 哈希绑定、正文与附录页数、空白页、页面尺寸、字体嵌入和图片 DPI 检查。
 - 所有产物位于 `PROJECT_ROOT`，`SKILL_ROOT` 未被改写。
+
+
+## 三人竞赛团队扩展（本 Fork）
+
+当项目是三人研究生数学建模竞赛、项目根目录存在 `STATUS.md` / `TASKS.md` / `problem/dependency.md`，用户提到 Codex + DSH 协作、A-F 选题、Q1..QN 子问题、AnySearch、异构本地/远程执行，或询问“现在做到哪一步/下一步做什么”时，**必须加载仓库根目录 `TEAM-SKILL.md` 并按其团队状态机执行**。
+
+团队扩展不会替代本 Skill 原有的建模手、编程手、论文手和 M1/P1/P2/W1/W2 门禁；它在其外层增加：
+- A-F 六题 Flash/AnySearch 初筛 + 三 Astra 复筛 + 人工选题；
+- Q1..QN 依赖 DAG 与每问独立状态；
+- Astra/Codex 高价值推理与代码 scaffold，DSH/Flash 常规实现和批量执行；
+- Codex/DSH 文件 Handoff；
+- 每人自定义本地/远程 Python/MATLAB/CPU/GPU execution profile；
+- Git 短任务分支与证据链；
+- 基于项目文件回答团队当前进度与下一步。
+
+详细入口：`TEAM-SKILL.md`、`references/team/`、`scripts/team_*.py`。

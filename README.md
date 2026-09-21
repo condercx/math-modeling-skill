@@ -322,3 +322,10 @@ python -m compileall -q tools references/roles/编程手/scripts
 **[算法索引](references/算法索引.md) · [使用文档](SKILL.md) · [角色说明](references/roles/) · [更新日志](CHANGELOG.md)**
 
 </div>
+
+
+## 👥 本 Fork：2026 三人团队编排扩展
+
+本 fork 在上游 1.3.0 的建模/编程/论文能力之上增加 `TEAM-SKILL.md`：A-F 选题、Q1..QN 依赖 DAG、AnySearch 宽搜、Astra/Codex 与 DSH/Flash 模型路由、代码 scaffold→Flash 实现→Astra 验收、跨本地/远程 Python/MATLAB/GPU 的 execution profile、Git Handoff，以及基于 `STATUS.md` / `TASKS.md` 回答“现在做到哪一步/下一步做什么”。
+
+团队竞赛项目请同时使用独立工作仓库 `condercx/huawei-cup-2026`。比赛期间建议固定本 fork 的 commit/tag，不临时同步 upstream。
