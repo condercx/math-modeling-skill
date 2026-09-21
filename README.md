@@ -329,3 +329,14 @@ python -m compileall -q tools references/roles/编程手/scripts
 本 fork 在上游 1.3.0 的建模/编程/论文能力之上增加 `TEAM-SKILL.md`：A-F 选题、Q1..QN 依赖 DAG、AnySearch 宽搜、Astra/Codex 与 DSH/Flash 模型路由、代码 scaffold→Flash 实现→Astra 验收、跨本地/远程 Python/MATLAB/GPU 的 execution profile、Git Handoff，以及基于 `STATUS.md` / `TASKS.md` 回答“现在做到哪一步/下一步做什么”。
 
 团队竞赛项目请同时使用独立工作仓库 `condercx/huawei-cup-2026`。比赛期间建议固定本 fork 的 commit/tag，不临时同步 upstream。
+
+
+### 团队版本安装
+
+Codex / 支持仓库 Skill 的 Agent 使用本 fork：
+
+```bash
+git clone https://github.com/condercx/math-modeling-skill.git
+```
+
+或按 Agent 的 GitHub Skill 安装方式指定 `condercx/math-modeling-skill`。DSH 请使用本 fork 中 `dsh-plugin/math-modeling-agent/`，该预设已经内置同一份团队扩展。团队比赛工作区为 `condercx/huawei-cup-2026`。
