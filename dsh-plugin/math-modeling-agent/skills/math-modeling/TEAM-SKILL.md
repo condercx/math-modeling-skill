@@ -66,3 +66,16 @@ Agent 位置、代码执行位置、artifact 存储位置三者解耦。每人�
 - 状态推进时同步更新 `STATUS.md` 和 `TASKS.md`；关键决策写 `DECISIONS.md`。
 
 完整细则见 `references/team/`。
+
+
+## 2026 华为杯官方合规模式
+
+当目标竞赛为“华为杯”第二十三届中国研究生数学建模竞赛（2026）时，在启动步骤最前面额外读取 `references/competitions/huawei-cup-2026.md`，并把其中要求视为硬约束。
+
+必须额外执行：
+1. 确认比赛工作仓库为 private；public 时将 `PREP` 标记为 BLOCKED，禁止写入真实赛题、数据、结果和论文。
+2. 项目内预留并维护 `official/2026/`、`paper/template/`、`paper/working/`、`paper/checkpoints/`、`paper/export/`、`submission/`、`attachments/`、`ai_usage/`。
+3. 使用官方附件 3 模板作为 Word 主工作稿起点；首页封皮不可删除，4 个 logo 不得替换；正式提交物是 PDF。
+4. 任何 AI 辅助数据分析、程序代码和无法确认来源的模型/公式按 2026 附件 4 执行标注；正式写作必须经过 Human Rewrite/Review gate。
+5. MD5 提交后把对应 PDF 视为不可变 artifact；Agent 不得覆盖、重新导出或“顺手修正”。
+6. 所有 2026 时间、文件命名和附件规则以 `references/competitions/huawei-cup-2026.md` 为准。
