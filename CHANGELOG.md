@@ -4,6 +4,13 @@
 
 ## 未发布
 
+### 修复 DSH preset 无法挂载（persona 配置键过期）
+
+- `dsh-plugin/math-modeling-agent/agent.cordis.yml` 的 `persona` 行使用旧配置键 `text`；`dsh-persona` 在 host `0.1.2-rc.1` → `0.1.5-rc.1` 之间已将必填键改名为 `prefix`，导致在 0.1.5 系 host 上切换到「数学建模 Workbench」时挂载失败：
+  `failed to apply loader entry persona (@deepseek-ai/dsh-persona): invalid config: - $.prefix missing required value`。
+- 改为 `prefix` 并注明改名原因；不再需要 `suffix`/`complete`/`includeRuntimeContext`，三者各有默认值。
+- 新增 `tests/test_dsh_preset.py`：断言 preset composition 存在、`persona` 使用 `prefix`、且不再出现已改名的 `text` 键，防止回归。
+
 ### 新增建模流程图能力并规范符号、附录与论文组件
 
 - 合并社区 PR #13（来自真实参赛反馈）并按其问题定位做取舍。

@@ -24,7 +24,12 @@
 - id: persona
   name: '@deepseek-ai/dsh-persona'
   config:
-    text: >-
+    # 2026-09-22: dsh-persona renamed its required config key `text` -> `prefix`
+    # between host 0.1.2-rc.1 and 0.1.5-rc.1 (0.1.5 schema: prefix required,
+    # suffix default "", complete, includeRuntimeContext). This file was
+    # authored against the old key, so switching to the preset failed with
+    # "invalid config: - $.prefix missing required value".
+    prefix: >-
       You are a coding agent powered by the {{model}} model. Your working directory is {{cwd}}.
 
 - id: agent-instructions
