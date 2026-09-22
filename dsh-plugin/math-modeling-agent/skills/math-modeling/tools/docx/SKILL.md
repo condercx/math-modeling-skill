@@ -139,4 +139,4 @@ python scripts/paper_format.py validate "<PROJECT_ROOT>/完整论文.docx" --con
 python scripts/equations.py verify-conversion "<PROJECT_ROOT>/完整论文.docx"
 ```
 
-`verify-conversion` 仅适用于由本工具的 Pandoc 转换生成、带 `.conversion.json` 的 DOCX；直接由 `paper_format.py` 构建时省略。`paper_format.py validate` 输出结构化指标，并在官方前置结构、篇幅质量目标、公式/图/表数量、图表编号与正文引用、参考文献双向对应或实际页数任一不满足时返回非零退出码。所有竞赛默认至少 8 幅图；CUMCM 默认的 15000 字词单位和约 20 页只是质量目标。以 2026 年官方规范为例，正文不超过 30 页才是硬约束。只有当届官方规则或用户明确要求允许偏离时才能调整目标并记录依据。结构校验后，把 DOCX 渲染成 PDF 或图片抽检分页、公式、表格、图片、页眉页脚和字体替换。
+`verify-conversion` 仅适用于由本工具的 Pandoc 转换生成、带 `.conversion.json` 的 DOCX；直接由 `paper_format.py` 构建时省略。`paper_format.py validate` 输出结构化指标，并在官方前置结构、篇幅质量目标、公式/图/表数量、图表编号与正文引用、参考文献双向对应或实际页数任一不满足时返回非零退出码。通用篇幅目标只能作为内部规划参考；任何正式页数上限或下限必须从目标竞赛当届官方规则读取，不得跨竞赛套用。结构校验后，把 DOCX 渲染成 PDF 或图片抽检分页、公式、表格、图片、页眉页脚和字体替换。
