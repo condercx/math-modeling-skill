@@ -153,3 +153,16 @@ cp "<SKILL_ROOT>/使用指南.md" "<PROJECT_ROOT>/使用指南.md"
 - 基于项目文件回答团队当前进度与下一步。
 
 详细入口：`TEAM-SKILL.md`、`references/team/`、`scripts/team_*.py`。
+
+
+## 2026 华为杯专项规则
+
+当目标明确为 2026“华为杯”第二十三届中国研究生数学建模竞赛时，除通用流程外，必须读取 `references/competitions/huawei-cup-2026.md`。该文件固定了当届时间节点、官方 Word 模板/摘要页、最终 PDF 命名、MD5 锁定、可选附件、AI 输出标注、仓库私密性和人工改写要求。通用论文质量目标若与当届官方文件冲突，以当届官方文件为准。
+
+项目初始化时，如用户已经取得四个官方附件，优先运行：
+
+```bash
+python "<SKILL_ROOT>/scripts/huawei2026_prepare.py" "<PROJECT_ROOT>" --source-dir "<官方附件所在目录>"
+```
+
+脚本会核对四个附件的 SHA-256、复制只读官方原件、建立 Word 工作稿和 AI 标注模板。若哈希不匹配，必须停止并要求重新取得官方文件。
