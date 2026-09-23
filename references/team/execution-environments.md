@@ -1,7 +1,7 @@
 # 异构执行环境
 
 ## 三层解耦
-1. Agent location：Codex/DSH 在哪里。
+1. Agent location：Codex 主 Agent/可选子代理在哪里。
 2. Execution backend：代码在哪里运行。
 3. Artifact storage：数据/模型/结果在哪里保存。
 

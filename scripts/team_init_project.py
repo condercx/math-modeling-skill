@@ -4,7 +4,7 @@ import sys
 
 ROOT_FILES={
 "README.md":"# 2026 研究生数学建模团队工作仓库\n",
-"AGENTS.md":"# Agent Rules\n\n1. 先读 STATUS.md、TASKS.md、DECISIONS.md。\n2. 正式数字必须来自 results/。\n3. Flash 不得自行改变关键模型/公式/阈值。\n4. Codex 与 DSH 默认通过 handoff/ 交接。\n5. 执行前读本地 execution profile。\n6. main 只保存已验证状态。\n",
+"AGENTS.md":"# Agent Rules\n\n1. 先读 STATUS.md、TASKS.md、DECISIONS.md。\n2. 正式数字必须来自 results/。\n3. 默认 Sol 主线；Luna max 可用时优先承担独立高 token 探索，关键选择由人确认。\n4. 跨成员/机器异步任务通过 handoff/ 交接。\n5. 执行前读本地 execution profile。\n6. main 只保存已验证状态。\n",
 "STATUS.md":"# STATUS\n\n- top_phase: PREP\n- selected_problem: TBD\n- backup_problem: TBD\n- q_states: TBD\n- last_gate: none\n- blockers: none\n",
 "TASKS.md":"# TASKS\n\n| ID | Owner | Q | State | Task | Depends on | Evidence |\n|---|---|---|---|---|---|---|\n",
 "DECISIONS.md":"# DECISIONS\n\n记录：日期 / 决定 / 理由 / 影响问题 / 相关 commit 或结果。\n",
@@ -13,9 +13,6 @@ DIRS=["config","selection","problem","research","models","data/raw","data/proces
 PROFILE="""member: CHANGE_ME
 agent:
   codex:
-    location: local
-    workspace: CHANGE_ME
-  dsh:
     location: local
     workspace: CHANGE_ME
 execution:
