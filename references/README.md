@@ -38,7 +38,7 @@
 | 工具 | 入口 |
 |---|---|
 | 科研可视化 | `../tools/figure/SKILL.md` |
-| 双引擎论文搜索 | `../tools/paper_search/SKILL.md` |
+| 可追溯论文搜索（团队模式不强制 AnySearch） | `../tools/paper_search/SKILL.md` |
 | PDF | `../tools/pdf/SKILL.md` |
 | Excel | `../tools/xlsx/SKILL.md` |
 | DOCX | `../tools/docx/SKILL.md` |

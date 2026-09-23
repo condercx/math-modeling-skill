@@ -32,7 +32,7 @@
 - 📊 **完整结果输出**：生成结果表格、原始数据图、模型运行过程图和最终结果图，以及必须的总体建模流程图。
 - 🎨 **出版级科学可视化**：先剖析数据和论证目标再选图，提供 Python/MATLAB 统一样式、色觉友好编码、SVG + 300 DPI PNG 导出与成图自检闭环。
 - 🔁 **可复现运行**：记录随机种子、输入文件 SHA-256、运行时与依赖版本、关键参数和唯一复现命令。
-- 🔎 **双引擎论文搜索**：并行调用 OpenAlex 与 AnySearch，按 DOI 或题名交叉核验。
+- 🔎 **可追溯论文搜索**：通用模式可并行使用 OpenAlex 与 AnySearch；2026 华为杯团队模式不以 AnySearch 为前置条件，优先核对原始出版页面。
 - 📄 **Word / LaTeX 论文生成**：支持官方模板、嵌套主入口、整篇 LaTeX→DOCX、Word 原生 OMML 公式、真实 PDF 编译、权威资源—源码—产物哈希绑定和完整质量门禁。默认只生成 Word 论文，LaTeX 可选。
 - 🧾 **论文组件规范**：使用“符号、含义、单位”三列符号说明表和标准数学排版，按当届规则组织附录。
 - 🛡️ **阶段内独立质检**：默认只在建模终检、最小可运行结果、编程终检、论文证据大纲和论文终检节点派发只读 Subagent，发现问题立即返工复验。
@@ -326,17 +326,6 @@ python -m compileall -q tools references/roles/编程手/scripts
 
 ## 👥 本 Fork：2026 三人团队编排扩展
 
-本 fork 在上游 1.3.0 的建模/编程/论文能力之上增加 `TEAM-SKILL.md`：A-F 选题、Q1..QN 依赖 DAG、AnySearch 宽搜、Astra/Codex 与 DSH/Flash 模型路由、代码 scaffold→Flash 实现→Astra 验收、跨本地/远程 Python/MATLAB/GPU 的 execution profile、Git Handoff，以及基于 `STATUS.md` / `TASKS.md` 回答“现在做到哪一步/下一步做什么”。
+本 fork 在上游建模/编程/论文能力之上增加 `TEAM-SKILL.md`：三人 A-F 选题、Q1..QN 依赖 DAG、Sol 主线、可用时 Luna `effort=max` 承担独立且高 token 的探索/资料整理、Git Handoff、异构 Python/MATLAB/GPU 执行和证据驱动进度答复。Luna 不独立冻结关键模型，原 M1/P1/P2/W1/W2 独立门禁与人工决定不变。
 
-团队竞赛项目请同时使用独立工作仓库 `condercx/huawei-cup-2026`。比赛期间建议固定本 fork 的 commit/tag，不临时同步 upstream。
-
-
-### 团队版本安装
-
-Codex / 支持仓库 Skill 的 Agent 使用本 fork：
-
-```bash
-git clone https://github.com/condercx/math-modeling-skill.git
-```
-
-或按 Agent 的 GitHub Skill 安装方式指定 `condercx/math-modeling-skill`。DSH 请使用本 fork 中 `dsh-plugin/math-modeling-agent/`，该预设已经内置同一份团队扩展。团队比赛工作区为 `condercx/huawei-cup-2026`。
+团队竞赛工作仓库为私有的 `condercx/huawei-cup-2026`。通过仓库内 one-clone bootstrap 安装此 Skill；不需要 DSH 或 AnySearch。`dsh-plugin/` 仅为此前版本兼容与历史资料，不是新队员部署要求。竞赛期间不要把真实题目、代码、结果或论文发到公共仓库。
