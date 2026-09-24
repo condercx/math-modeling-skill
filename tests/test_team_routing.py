@@ -39,6 +39,11 @@ class TeamRoutingTests(unittest.TestCase):
         self.assertIn("不强制 AnySearch", research)
         self.assertIn("项目模型路由", research)
 
+    def test_historical_dsh_bundle_is_not_recommended_for_new_install(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("历史兼容资料，不用于新安装", readme)
+        self.assertIn("不要复制、安装", readme)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -68,13 +68,11 @@
 
 ### DeepSeek Harness 插件
 
-本仓库同时提供 [DeepSeek Harness](https://deepseek-harness.github.io/deepseek-harness/)（dsh）的 **Agent 预设**：`dsh-plugin/math-modeling-agent/`，把三阶段工作流、五门禁质检、任务看板与完成判定封装为 `mm_*` 工具，供 dsh 桌面端使用。
+> **历史兼容资料，不用于新安装。** `dsh-plugin/` 内置的是旧版自包含路由，可能保留 Astra/Flash、DSH 或 AnySearch 等历史规则；它不随当前 `SKILL.md` / `TEAM-SKILL.md` 自动更新。新项目请使用下方 Git/npx 安装本 Skill，并服从项目级模型路由。
 
-**安装**：把整个 `dsh-plugin/math-modeling-agent/` 目录复制到本机 dsh 预设根目录（`<dsh-home>\.agent-presets\`，Windows 默认 `C:\Users\<用户名>\AppData\Roaming\dsh-desktop\dsh-home\.agent-presets`），目录名即预设 id（如 `math-modeling`）。也可直接复制 `dsh-plugin/README.md` 中附带的安装提示词给 dsh Agent 自动完成安装。
+本仓库保留 [DeepSeek Harness](https://deepseek-harness.github.io/deepseek-harness/)（dsh）的旧 Agent 预设 `dsh-plugin/math-modeling-agent/`，仅用于复现和维护既有部署。除非明确维护历史 dsh 环境，不要复制、安装或把其内置知识库当当前团队规则。
 
-**使用**：新建 dsh 会话 → 选择预设「数学建模 Workbench」，即可使用 `mm_project_init` / `mm_phase_enter` / `mm_todo` / `mm_gate` / `mm_check_deliverables` / `mm_complete` / `mm_state` 等工具，并通过 `skill` 工具加载内置 math-modeling 知识库。
-
-> 插件为**自包含**设计：知识库随预设持久化，不依赖外部仓库路径，可整体复制到任意机器使用。
+历史安装与使用细节仍保存在 `dsh-plugin/README.md`，不构成新用户推荐路径。
 
 ### 安装
 
