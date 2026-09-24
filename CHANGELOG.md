@@ -9,6 +9,12 @@
 
 ## 未发布
 
+### 团队模型路由改为项目级动态选择
+
+- 移除团队扩展中对 GPT-6 Sol 主线和 Luna max 探索的硬编码；当前型号与 effort 改由项目 `AGENTS.md`、项目模型路由文件、任务风险和环境能力共同决定。
+- 保留 M1/P1/P2/W1/W2 独立门禁：reviewer 必须未参与被审产物编写或修正，固定输入与范围，并记录实际 model/effort；历史回执不改签。
+- 同步团队初始化模板、调研/编码/Handoff 参考和回归测试，避免新项目继承过期的固定模型口号。
+
 ### 修复 DSH preset 无法挂载（persona 配置键过期）
 
 - `dsh-plugin/math-modeling-agent/agent.cordis.yml` 的 `persona` 行使用旧配置键 `text`；`dsh-persona` 在 host `0.1.2-rc.1` → `0.1.5-rc.1` 之间已将必填键改名为 `prefix`，导致在 0.1.5 系 host 上切换到「数学建模 Workbench」时挂载失败：
