@@ -326,6 +326,6 @@ python -m compileall -q tools references/roles/编程手/scripts
 
 ## 👥 本 Fork：2026 三人团队编排扩展
 
-本 fork 在上游建模/编程/论文能力之上增加 `TEAM-SKILL.md`：三人 A-F 选题、Q1..QN 依赖 DAG、Sol 主线、可用时 Luna `effort=max` 承担独立且高 token 的探索/资料整理、Git Handoff、异构 Python/MATLAB/GPU 执行和证据驱动进度答复。Luna 不独立冻结关键模型，原 M1/P1/P2/W1/W2 独立门禁与人工决定不变。
+本 fork 在上游建模/编程/论文能力之上增加 `TEAM-SKILL.md`：三人 A-F 选题、Q1..QN 依赖 DAG、项目级动态模型路由、Git Handoff、异构 Python/MATLAB/GPU 执行和证据驱动进度答复。具体型号与 effort 服从项目 `AGENTS.md` 和模型路由文件；子代理不独立冻结关键模型，原 M1/P1/P2/W1/W2 独立门禁与人工决定不变。
 
 团队竞赛工作仓库为私有的 `condercx/huawei-cup-2026`。通过仓库内 one-clone bootstrap 安装此 Skill；不需要 DSH 或 AnySearch。`dsh-plugin/` 仅为此前版本兼容与历史资料，不是新队员部署要求。竞赛期间不要把真实题目、代码、结果或论文发到公共仓库。
