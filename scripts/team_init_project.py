@@ -2,15 +2,40 @@
 from pathlib import Path
 import sys
 
-ROOT_FILES={
-"README.md":"# 2026 研究生数学建模团队工作仓库\n",
-"AGENTS.md":"# Agent Rules\n\n1. 先读 STATUS.md、TASKS.md、DECISIONS.md。\n2. 正式数字必须来自 results/。\n3. 模型与 effort 按任务、风险和当前环境选择；实际路由须记录，关键选择由人确认。\n4. 跨成员/机器异步任务通过 handoff/ 交接。\n5. 执行前读本地 execution profile。\n6. main 只保存已验证状态。\n",
-"STATUS.md":"# STATUS\n\n- top_phase: PREP\n- selected_problem: TBD\n- backup_problem: TBD\n- q_states: TBD\n- last_gate: none\n- blockers: none\n",
-"TASKS.md":"# TASKS\n\n| ID | Owner | Q | State | Task | Depends on | Evidence |\n|---|---|---|---|---|---|---|\n",
-"DECISIONS.md":"# DECISIONS\n\n记录：日期 / 决定 / 理由 / 影响问题 / 相关 commit 或结果。\n",
-".gitignore":"config/execution-profile.local.yaml\n.env\n__pycache__/\n*.pyc\n.venv/\nvenv/\nresults/**/cache/\nartifacts/large/\n"}
-DIRS=["config","selection","problem","research","models","data/raw","data/processed","src/common","experiments","results","figures","handoff","environments","paper/sections","reviews/final","ai_usage"]
-PROFILE="""member: CHANGE_ME
+
+AGENTS = """# Agent Rules
+
+1. 原始题目、官方代码、config 和原始输入只读；官方代码可以调用，输出写到新目录。
+2. 不直接覆盖最终论文主稿、submission/locked/、锁定 PDF 或 MD5 事实。
+3. 不使用 reset --hard、force-push，或删除、覆盖其他窗口的未提交工作。
+
+直接使用 models/、src/、experiments/、results/ 和 paper/sections/ 迭代。旧状态机、Handoff、固定 owner、预算审批和逐轮审核不是默认流程。
+"""
+
+README = """# Math Modeling Project
+
+当前项目采用轻量协作。现行规则见 AGENTS.md。
+
+- models/：模型正文和迭代版本
+- src/：求解与实验代码
+- experiments/：探索运行
+- results/：正式或可追溯结果
+- figures/：图表
+- paper/：论文工作区
+- ai_usage/：AI 使用记录
+"""
+
+GITIGNORE = """config/execution-profile.local.yaml
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+results/**/cache/
+artifacts/large/
+"""
+
+PROFILE = """member: CHANGE_ME
 agent:
   codex:
     location: local
@@ -26,14 +51,44 @@ execution:
 artifact_transport:
   type: git
 """
-def main():
-    if len(sys.argv)!=2: raise SystemExit("usage: team_init_project.py <PROJECT_ROOT>")
-    root=Path(sys.argv[1]).resolve(); root.mkdir(parents=True,exist_ok=True)
-    for d in DIRS:
-        p=root/d; p.mkdir(parents=True,exist_ok=True); (p/'.gitkeep').touch(exist_ok=True)
-    for n,c in ROOT_FILES.items():
-        p=root/n
-        if not p.exists(): p.write_text(c,encoding="utf-8")
-    (root/"config"/"execution-profile.example.yaml").write_text(PROFILE,encoding="utf-8")
+
+DIRS = [
+    "config",
+    "problem",
+    "models",
+    "data/raw",
+    "data/processed",
+    "src",
+    "experiments",
+    "results",
+    "figures",
+    "paper/sections",
+    "ai_usage",
+]
+
+
+def main() -> None:
+    if len(sys.argv) != 2:
+        raise SystemExit("usage: team_init_project.py <PROJECT_ROOT>")
+    root = Path(sys.argv[1]).resolve()
+    root.mkdir(parents=True, exist_ok=True)
+    for relative in DIRS:
+        path = root / relative
+        path.mkdir(parents=True, exist_ok=True)
+        (path / ".gitkeep").touch(exist_ok=True)
+    for name, content in {
+        "README.md": README,
+        "AGENTS.md": AGENTS,
+        ".gitignore": GITIGNORE,
+    }.items():
+        path = root / name
+        if not path.exists():
+            path.write_text(content, encoding="utf-8")
+    (root / "config" / "execution-profile.example.yaml").write_text(
+        PROFILE, encoding="utf-8"
+    )
     print(root)
-if __name__=="__main__": main()
+
+
+if __name__ == "__main__":
+    main()
