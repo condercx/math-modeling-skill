@@ -1,40 +1,42 @@
 ---
 name: math-modeling-team
-description: 三人数学建模竞赛团队协作扩展：项目级模型路由、A-F 选题、Q1..QN 依赖、异构执行、证据链与进度管理。
+description: 数学建模比赛团队的轻量协作扩展。用于多人并行处理选题、子问题、代码实验和论文；项目 AGENTS.md 优先，不使用强制状态机或固定门禁。
 ---
 
-# 三人数学建模团队扩展
+# 三人数学建模团队
 
-原 `math-modeling` Skill 继续负责建模/编程/论文与 M1/P1/P2/W1/W2 独立门禁。本扩展管理团队决策、题目依赖、角色协作和交付证据；不改变当届官方 AI 与提交规则。
+本扩展只提供轻量协作建议。项目 `AGENTS.md` 是最高现行规则；若项目明确采用一次性轻量模式，不要创建旧的 `STATUS/TASKS/DECISIONS/handoff` 状态机。
 
-## 启动
+## 默认方式
 
-1. 2026 华为杯先读 `references/competitions/huawei-cup-2026.md`，再读项目 `AGENTS.md`、`STATUS.md`、`TASKS.md`、`DECISIONS.md`、`submission/SCHEDULE.md` 和 `ai_usage/AI_POLICY.md`。
-2. 选题后读 `problem/problem-map.md`、`problem/dependency.md`；具体流程按 `references/team/workflow.md`。
-3. 正式代码执行前读本成员 `config/execution-profile.local.yaml`；禁止提交该文件。
-4. 调研读 `references/team/research-protocol.md`。跨成员/机器的异步任务读 `references/team/agent-handoff.md`；Git 协作读 `references/team/git-protocol.md`。
+- 直接选择当前有价值的任务开工，不等待固定 owner、预算或 Handoff。
+- 模型、代码、实验、研究笔记和论文草稿可自由迭代。
+- 每个窗口使用独立分支、worktree 或结果目录，避免覆盖其他人的未提交工作。
+- 记录实际输入、命令、输出和限制；失败结果保留。
+- 需要同步时直接在消息中说明目标、输入、写域和验证方式，不强制模板。
 
-## 模型与子代理路由
+## 可选协作
 
-- 开工先读项目 `AGENTS.md`；若项目存在模型路由文件，以它作为当前型号、effort 和批准池的唯一准据。本 Skill 不另设 Sol/Luna/Astra 等固定主从关系。
-- 主 Agent 按任务复杂度、风险、时效、上下文和当前环境能力选型；用户明确指定的受支持路由优先。项目偏好不等于当前会话的实际型号，实际型号未知时不得猜填。
-- 独立只读质检仍按原 Skill 的门禁调度，由未参与被审产物编写或修正的 Agent 执行。模型名称不同不自动证明独立；回执须固定输入、范围、实际 model/effort 和证据。
-- 探索产物始终是候选，不是经验证事实；不得由子代理擅自冻结模型、公式、阈值、目标函数、约束或接口。是否允许固定质检之外的额外协作，服从用户授权和项目规则。
-- 历史回执、AI 账本和旧任务中的实际模型保持原样；不得为了符合现行路由而批量改签。
+复杂或高风险产物可以按需安排独立只读复核。复核不是默认流程，发现问题时直接修正并记录，不会阻断主线。
 
-默认链路：`EXPAND（可按项目规则并行探索） -> SELECT（主 Agent） -> DECIDE（人） -> SPEC/IMPLEMENT/RUN（主 Agent） -> VERIFY（主 Agent + 独立门禁）`。
-跨成员/跨机器或异步任务使用 Handoff；同一会话不为机械拆工强制交接。
+选题、模型取舍、关键参数、正式结论和最终论文由队员人工确认。AI 或子代理可以扩展候选和检查证据，但不能替代人的判断。
 
-## 状态与责任
+## 技术依赖
 
-顶层状态以项目 `STATUS.md` 为准；每问依次 `RESEARCH -> MODEL -> INTERFACE -> SCAFFOLD -> IMPLEMENT -> RUN -> VERIFY -> PAPER -> PASS`。下游只消费已 PASS 或人工明确批准提前消费的上游 artifact，依赖 DAG 以 `problem/dependency.md` 为准。
+选题后维护真实的子问题依赖，例如 `problem/dependency.md`。上游模型或接口变化时，下游应检查实际影响；不要求把每次变化登记为 Gate。
 
-三人各负责两题初筛；主 Agent 以数学、实现、论文风险三视角复筛，可按项目规则并行扩展资料；人类会议决定主选题与备选题，写 `DECISIONS.md`。A/B/C 是人的职责分工，不是模型分工。
+Q1/Q2/Q3 等子问题可以在独立目录并行推进。只有在下游实际消费上游结果时，才需要明确所用版本、路径和输入。
 
-进度答复必须读取 STATUS/TASKS、依赖图、活跃 Handoff/Gate 与必要结果，给出当前状态、阻塞链、每人下一步和下个门禁。不凭聊天记忆推进状态。
+## Git 与结果
 
-Agent 所在地、代码执行端和 artifact 存储解耦；正式 Python 统一 3.11.x，每台执行机器自行建隔离环境。`main` 只收已验证状态；短任务分支，更新 STATUS/TASKS 和关键 DECISIONS。
+- 优先使用独立分支或 worktree。
+- 不使用 `reset --hard`、force-push 或删除其他人的未提交工作。
+- 结果写入独立 `run_id` 或 attempt 目录，不覆盖旧证据。
+- 是否提交、合并或开 PR 由实际团队按时间与风险决定，不强制逐轮审核。
 
-## 2026 华为杯硬约束
+## 竞赛硬约束
 
-仓库必须 private，公开时禁止写入真实题目/数据/结果/论文；官方附件 3 Word 模板封面及四个 logo 不得替换；正式提交 PDF。AI 辅助数据分析和代码按附件 4 标注，最终正文人工改写与核验。MD5 提交后锁定 PDF 不得覆盖或重导出。详见 `references/competitions/huawei-cup-2026.md`。
+- 原始题目、官方代码和 config 只读。
+- 正式数字来自真实运行结果。
+- AI 使用按当届规则标注并记录。
+- 最终论文由人核验改写，官方模板、匿名和 MD5 锁定要求不可取消。
