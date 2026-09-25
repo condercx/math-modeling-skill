@@ -34,9 +34,16 @@ class TeamRoutingTests(unittest.TestCase):
             self.assertTrue((project / "results").is_dir())
 
     def test_current_team_references_are_lightweight(self):
-        workflow = (ROOT / "references/team/workflow.md").read_text(encoding="utf-8")
-        self.assertIn("项目 `AGENTS.md` 优先", workflow)
-        self.assertIn("不要求", workflow)
+        for name in (
+            "workflow.md",
+            "coding-workflow.md",
+            "git-protocol.md",
+            "project-layout.md",
+            "human-progress.md",
+        ):
+            text = (ROOT / "references/team" / name).read_text(encoding="utf-8")
+            self.assertIn("不要求", text, name)
+            self.assertNotIn("下一个 Gate", text, name)
 
     def test_historical_dsh_bundle_is_not_recommended_for_new_install(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")

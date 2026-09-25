@@ -1,7 +1,7 @@
 # 跨成员/跨机器异步 Handoff
 
-同一主 Agent 会话直接推进 SPEC/IMPLEMENT/RUN/VERIFY；只有跨成员、跨机器或异步任务才使用 `handoff/<task-id>/`，含 `REQUEST.md`、`STATUS.yaml`、`RESULT.md`。一个 Packet 只覆盖一个独立可验收单元。
+同一会话在授权内直接推进 SPEC/IMPLEMENT/RUN/VERIFY；只有确有跨成员、跨机器或异步协作需要时才使用 `handoff/<task-id>/`。Packet 不是默认流程，内容可按任务删减，一个 Packet 只覆盖一个独立可验收单元。
 
-REQUEST 写目标、Owner、创建方、只读输入、允许/禁止修改、执行环境、命令、验收标准、预期产物、上游 ref。执行方写 RESULT：改动文件、实际命令及退出码、结果路径、失败/异常和需主 Agent/人决定的问题，状态转 READY_FOR_REVIEW。正式运行须关联 commit、环境、输入与输出哈希、随机种子（适用时）和复现命令。
+REQUEST 写目标、执行者（如已确定）、只读输入、写域、执行环境、命令、验收标准和预期产物。执行方写真实改动、实际命令及退出码、结果路径、失败、未知项和需人决定的问题。正式运行关联 commit、环境、输入与输出哈希、随机种子（适用时）和复现命令。
 
 异机以私有 Git 传文本与小结果；大 artifact 记录路径/哈希，按团队批准的传输方式同步。子代理的即时探索可直接在任务回执交付，不必机械创建跨主机 Handoff。

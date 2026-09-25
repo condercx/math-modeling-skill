@@ -40,6 +40,27 @@ class SubagentProtocolTests(unittest.TestCase):
         self.assertIn("M1/P1/P2/W1/W2", root)
         self.assertIn("不具有阻断", protocol)
 
+    def test_deep_workflows_do_not_force_legacy_gates(self):
+        paths = (
+            "references/roles/建模手/references/工作流程.md",
+            "references/roles/建模手/references/质检清单.md",
+            "references/roles/编程手/references/工作流程.md",
+            "references/roles/编程手/references/质检清单.md",
+            "references/roles/论文手/references/工作流程.md",
+            "references/roles/论文手/references/自审框架.md",
+        )
+        combined = "\n".join(read(path) for path in paths)
+        for forbidden in (
+            "未返回 `PASS` 不得",
+            "不得进入编程",
+            "不得进入论文阶段",
+            "不得交付",
+            "独立 P1/P2 门禁不因",
+        ):
+            self.assertNotIn(forbidden, combined)
+        self.assertIn("未安排复核不构成", combined)
+        self.assertIn("按需", combined)
+
 
 if __name__ == "__main__":
     unittest.main()
