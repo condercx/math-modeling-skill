@@ -1,329 +1,52 @@
-# 🎯 Math Modeling Skill
+# Math Modeling Skill
 
-<div align="center">
+面向数学建模竞赛的 Codex Skill，提供建模、编程、论文、科研图、DOCX、LaTeX、PDF、Excel 和论文检索工具。
 
-**面向数学建模竞赛与建模项目的三阶段工作流**
+当前规则采用轻量协作模式：
 
-[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](VERSION)
-[![Agent Skill](https://img.shields.io/badge/Agent-Skill-4B8BBE.svg)](SKILL.md)
+- 项目 `AGENTS.md` 优先。
+- 不强制 `STATUS/TASKS/DECISIONS`、Handoff、预算审批、固定 owner、模型路由或逐轮审核。
+- `M1/P1/P2/W1/W2` 仅为可选核查标签。
+- 原始题目和官方代码只读；正式论文仍须遵守当届模板、AI 标注、人工核验和 PDF MD5 要求。
 
-**关注我**
+## 安装
 
-[![CSDN](https://img.shields.io/badge/CSDN-博客-FC5531?logo=csdn&logoColor=white)](https://blog.csdn.net/SJbeITenginner?spm=1010.2135.3001.5343)
-[![知乎](https://img.shields.io/badge/知乎-主页-0084FF?logo=zhihu&logoColor=white)](https://www.zhihu.com/people/27-85-7-72-95/posts)
-[![小红书](https://img.shields.io/badge/小红书-主页-FF2442)](https://www.xiaohongshu.com/user/profile/6497dd69000000001c02ab98)
-
-</div>
-
----
-
-## 📖 简介
-
-本 Skill 将数学建模任务拆分为 **建模分析 → 代码实现 → 论文撰写** 三个阶段。既可以按顺序完成整道题，也可以只执行其中一个阶段。
-
-当前版本：[`1.3.0`](VERSION)
-
-> 生成的论文仅供参考。论文结构与格式必须以目标竞赛当届官方规则和官方模板为准。
-
-## ✨ 核心能力
-
-- 🧠 **建模分析**：读题、检查附件、拆分子问题、选择模型、设计求解与验证方案。
-- 💻 **双语言实现**：支持 Python 和 MATLAB，按选中的模型与功能动态检查依赖。
-- 📊 **完整结果输出**：生成结果表格、原始数据图、模型运行过程图和最终结果图，以及必须的总体建模流程图。
-- 🎨 **出版级科学可视化**：先剖析数据和论证目标再选图，提供 Python/MATLAB 统一样式、色觉友好编码、SVG + 300 DPI PNG 导出与成图自检闭环。
-- 🔁 **可复现运行**：记录随机种子、输入文件 SHA-256、运行时与依赖版本、关键参数和唯一复现命令。
-- 🔎 **可追溯论文搜索**：通用模式可并行使用 OpenAlex 与 AnySearch；2026 华为杯团队模式不以 AnySearch 为前置条件，优先核对原始出版页面。
-- 📄 **Word / LaTeX 论文生成**：支持官方模板、嵌套主入口、整篇 LaTeX→DOCX、Word 原生 OMML 公式、真实 PDF 编译、权威资源—源码—产物哈希绑定和完整质量门禁。默认只生成 Word 论文，LaTeX 可选。
-- 🧾 **论文组件规范**：使用“符号、含义、单位”三列符号说明表和标准数学排版，按当届规则组织附录。
-- 🛡️ **阶段内独立质检**：默认只在建模终检、最小可运行结果、编程终检、论文证据大纲和论文终检节点派发只读 Subagent，发现问题立即返工复验。
-- 🤝 **可选 Subagent 协作**：用户可按需启用规则核验、附件盘点、文献与模型调研、算法原型、独立实验、双语言对照或术语核验；默认全部关闭。
-- 🧩 **渐进式加载**：只读取当前阶段需要的角色规范、算法资料和工具说明。
-
-## 🔄 三阶段工作流
-
-<div align="center">
-  <img src="imgs/三角色流程图-含Subagent.png" alt="三角色协作、阶段内 Subagent 质检与反馈闭环" width="100%">
-</div>
-
-| 阶段 | 角色 | 核心任务 | 独立门禁 | 固定交付物 |
-|:---:|---|---|---|---|
-| ① | [建模手](references/roles/建模手/SKILL.md) | 理解题目、设计模型、定义算法和验证方案 | `M1` 建模终检 | `题目分析报告.md`、`术语表格.md` |
-| ② | [编程手](references/roles/编程手/SKILL.md) | 编写并运行 Python/MATLAB，生成结果与图 | `P1` 最小可运行结果、`P2` 编程终检 | 代码、结果表格、三类各至少 3 张且覆盖全部子问题的候选图、至少 1 幅总体建模流程图、`results/复现清单.json` |
-| ③ | [论文手](references/roles/论文手/SKILL.md) | 基于真实结果构建论证并生成 Word 论文 | `W1` 证据大纲、`W2` 论文终检 | 至少 8 幅且覆盖全部子问题的正式图；默认交付 `完整论文.docx`；用户显式要求时同时交付 LaTeX 源码项目、PDF 与哈希清单 |
-
-质检 Subagent 是阶段内只读验收者，不是第四个固定角色。默认只启用固定质检；其他协作仅在用户明确选择后运行。`P1` 在全量计算和正式出图前执行，`W1` 在长篇正文和双格式排版前执行；禁止等全流程结束后才首次质检。完整协议见 [Subagent 调度与阶段门禁](references/Subagent调度.md)。
-
-### 阶段反馈
-
-- 编程手发现公式、约束或参数无法实现时，携带实际报错返回建模手修正。
-- 论文手发现关键结论缺少真实结果、图表或文献支撑时，返回对应阶段补齐。
-- 任一独立门禁返回 `FAIL` 时，由原阶段执行者按证据修正并重新派发复验；主 Agent 不得自行覆盖失败结论。
-- 修正后从被阻断阶段继续，不重复已经通过的阶段。
-
-## 🚀 快速开始
-
-### 推荐 Agent
-
-本 Skill 可用于支持本地 Skills 或 Agent 工作流的工具，例如 Claude Code、Codex、Cursor、Trae 和 Qoder。具体加载方式以对应工具的当前文档为准。
-
-### DeepSeek Harness 插件
-
-> **历史兼容资料，不用于新安装。** `dsh-plugin/` 内置的是旧版自包含路由，可能保留 Astra/Flash、DSH 或 AnySearch 等历史规则；它不随当前 `SKILL.md` / `TEAM-SKILL.md` 自动更新。新项目请使用下方 Git/npx 安装本 Skill，并服从项目级模型路由。
-
-本仓库保留 [DeepSeek Harness](https://deepseek-harness.github.io/deepseek-harness/)（dsh）的旧 Agent 预设 `dsh-plugin/math-modeling-agent/`，仅用于复现和维护既有部署。除非明确维护历史 dsh 环境，不要复制、安装或把其内置知识库当当前团队规则。
-
-历史安装与使用细节仍保存在 `dsh-plugin/README.md`，不构成新用户推荐路径。
-
-### 安装
-
-#### Git 克隆
-
-```bash
-git clone https://github.com/XiaoMaColtAI/math-modeling-skill.git
-```
-
-克隆后，将仓库放入所用 Agent 的 Skills 目录或按其方式加载本目录。
-
-#### npx 安装
+将本目录放入 Codex 的 Skills 目录，或在支持 Skill 的 Agent 中直接加载 `SKILL.md`。
 
 ```bash
 npx skills add https://github.com/xiaomacoltai/math-modeling-skill --skill math-modeling
 ```
 
-也可以下载仓库 ZIP，解压后放入对应 Skills 目录。
-
-### 使用示例
-
-完整流程：
+## 使用
 
 ```text
-使用数学建模 Skill 完成这道题，默认生成 Word 论文。
-使用数学建模 Skill 完成这道题，同时生成 Word 和 LaTeX 论文。
-使用官方 LaTeX 模板完成这道题，只交付完整 LaTeX 源码项目和编译 PDF。
-使用数学建模 Skill 完成这道题，额外启用附件盘点、文献调研和算法原型 Subagent。
-使用数学建模 Skill 完成这道题，除固定质检外不使用其他 Subagent。
-```
-
-单阶段执行：
-
-```text
+使用数学建模 Skill 完成这道题。
 只做建模分析，输出题目分析报告和术语表格。
-只实现现有模型，使用 MATLAB 运行并生成全部结果和图。
-根据现有代码结果生成完整论文.docx。
-根据现有代码结果和官方模板生成 LaTeX 论文并实际编译（需显式要求）。
+根据现有模型实现代码并运行，保留真实结果。
+根据真实结果生成 Word 论文。
 ```
 
-主入口见 [SKILL.md](SKILL.md)。
+## 阶段
 
-## 📁 工作目录约定
+| 阶段 | 入口 | 主要交付 |
+|---|---|---|
+| 建模 | `references/roles/建模手/SKILL.md` | 题目分析报告、术语表格 |
+| 编程 | `references/roles/编程手/SKILL.md` | 代码、结果、图、复现说明 |
+| 论文 | `references/roles/论文手/SKILL.md` | Word；按需 LaTeX/PDF |
 
-- `SKILL_ROOT`：本仓库根目录，只读；角色规范、算法资料、脚本和模板从这里读取。
-- `PROJECT_ROOT`：用户题目所在目录；所有运行产物只写入这里。
-- 题目与附件保持只读；需要修改模板时，先复制到 `PROJECT_ROOT`。
+## 工具
 
-典型产物结构：
+- `tools/figure/`：数据剖析与出版级科研图
+- `tools/docx/`：Word、公式和模板
+- `tools/latex/`：LaTeX 模板、编译与 PDF 校验
+- `tools/pdf/`：PDF 读取、表单和渲染
+- `tools/xlsx/`：Excel 读写和公式重算
+- `tools/paper_search/`：OpenAlex 与可选 AnySearch 检索
 
-```text
-PROJECT_ROOT/
-├── data/                         # 题目附件，只读
-├── 题目分析报告.md
-├── 术语表格.md
-├── 问题1_求解.py 或 问题1_求解.m
-├── results/
-│   ├── 问题1_结果.csv
-│   └── 复现清单.json
-├── figures/
-│   ├── raw_q1_*.svg / raw_q1_*.png
-│   ├── process_q1_*.svg / process_q1_*.png
-│   ├── result_q1_*.svg / result_q1_*.png
-│   ├── raw_q2_* / process_q2_* / result_q2_*  # 其余问题依次覆盖
-│   ├── flow_overall_model.svg / .png     # 总体建模流程图（必须）
-│   ├── flow_qN_model.svg / .png          # 子问题流程图（按需）
-│   └── _qa/                       # 自动生成的灰度质检预览
-├── 完整论文.docx                 # 默认交付的 Word 论文
-├── 完整论文.conversion.json      # LaTeX→DOCX 输入/输出/模板哈希与警告记录（LaTeX 可选时）
-├── 完整论文-LaTeX/               # LaTeX 源码项目（用户显式要求时）
-│   ├── main.tex
-│   ├── latex-project.json         # 模板来源、主入口及代码/图表资源绑定
-│   ├── references.bib
-│   └── 官方模板附带的 cls/sty/bst 等资源
-├── 完整论文.pdf                  # 由 LaTeX 源码实际编译（用户显式要求时）
-└── 完整论文.build.json           # 源码/PDF 哈希、工具版本、命令与门禁结果（用户显式要求时）
-```
+`dsh-plugin/` 是 LEGACY/ARCHIVE ONLY 的旧兼容包，不用于新项目，也不作为当前协作入口。
 
-## 🛠️ 集成工具
-
-| 工具 | 用途 |
-|---|---|
-| [科研可视化](tools/figure/SKILL.md) | 数据剖析、选图决策、Nature/SCI 出版级绘制、建模流程图、自检闭环、多格式导出 |
-| [双引擎论文搜索](tools/paper_search/SKILL.md) | OpenAlex + AnySearch 搜索、融合和交叉核验 |
-| [DOCX 工具](tools/docx/SKILL.md) | 官方模板、递归 LaTeX→DOCX、警告发布门禁、OMML 公式、三线表、修订、批注和校验 |
-| [LaTeX 工具](tools/latex/SKILL.md) | 环境诊断、官方模板溯源、真实编译、哈希绑定、引用与 PDF 质量校验 |
-| [Excel 工具](tools/xlsx/SKILL.md) | XLSX 模板处理、公式重算和错误检查 |
-| [PDF 工具](tools/pdf/SKILL.md) | 读取题目 PDF，提取文本、表格和图片 |
-
-### 双引擎论文搜索
-
-```bash
-python tools/paper_search/scripts/hybrid_scholar.py \
-  --query "robust optimization vehicle routing" \
-  --limit 10 \
-  --json
-```
-
-- OpenAlex 可通过 `--email` 提供礼貌池邮箱。
-- AnySearch 需要密钥时设置环境变量 `ANYSEARCH_API_KEY`。
-- 正式检索默认同时运行两个引擎；单引擎参数只用于诊断。
-
-### 动态依赖检查
-
-Python 只检查实际需要的功能：
-
-```bash
-python references/roles/编程手/scripts/check_env.py \
-  --features data visualization optimization
-```
-
-MATLAB 使用：
-
-```matlab
-addpath("references/roles/编程手/scripts");
-report = check_matlab_env(["data", "visualization", "optimization"]);
-```
-
-## 🧮 算法资料
-
-算法资料覆盖七类问题：
-
-| 类别 | 代表方向 |
-|---|---|
-| 优化 | 线性、整数、非线性、多目标和启发式优化 |
-| 预测 | 灰色预测、时间序列、回归和机器学习预测 |
-| 评价 | AHP、TOPSIS、熵权、灰色关联和 DEA |
-| 图论 | 最短路、网络流、生成树和匹配 |
-| 统计 | 检验、聚类、降维和多元统计 |
-| 综合 | 蒙特卡洛、排队、博弈、马尔科夫和微分方程 |
-| 机器学习 | 随机森林、集成学习和异常检测 |
-
-先读取 [算法索引](references/算法索引.md)，再按问题类型加载对应资料。每道子问题最多使用两个独立模型体系；物理题中同一机理的基础近似与高精度展开按一个模型族计数。
-
-## 📄 论文生成
-
-默认只生成 Word 论文；用户显式要求时同时生成 LaTeX/PDF 论文。当届官方提交要求仍决定实际可提交的版本。
-
-- **Word**：从官方模板构建，LaTeX 严格转换为原生 OMML 公式，校验篇幅、公式、图表、编号引用、参考文献、DOCX 结构与渲染页数；已有 LaTeX 主稿可用 Pandoc 整篇转换。
-- **LaTeX（可选）**：完整复制官方模板项目并记录哈希，绑定权威代码/图表后真实编译 PDF，校验资源/源码/PDF 哈希、空白页、页面尺寸、字体嵌入与图片 DPI。
-- 没有官方模板时才使用内置构建基线；同时生成两种格式时必须使用相同的数据、图表、公式、参考文献和结论。
-- CUMCM 默认以约 15000 字词单位、约 20 页作为完整度质量目标（非官方要求）；所有竞赛采用相同的至少 8 幅正式图质量基线，每个子问题至少一幅正式结果图。
-
-完整流程与门禁见 `tools/docx/SKILL.md`、`tools/latex/SKILL.md`。
-
-## 📸 示例展示
-
-以下图表展示本项目可视化规范生成的候选图效果。
-
-### 2025 年国赛 A 题：烟幕干扰弹的投放策略
-
-<div align="center">
-  <img src="imgs/2025-国赛-A题示例1.svg" alt="国赛A题示例1" width="90%">
-  <br>
-  <em>投放方案对比与关键参数分析</em>
-  <br><br>
-  <img src="imgs/2025-国赛-A题示例2.svg" alt="国赛A题示例2" width="90%">
-  <br>
-  <em>Pareto 前沿与策略效果对比</em>
-</div>
-
-### 2025 年国赛 B 题：碳化硅外延层厚度的确定
-
-<div align="center">
-  <img src="imgs/2025-国赛-B题示例1.svg" alt="国赛B题示例1" width="90%">
-  <br>
-  <em>厚度拟合结果与方法对比</em>
-  <br><br>
-  <img src="imgs/2025-国赛-B题示例2.svg" alt="国赛B题示例2" width="90%">
-  <br>
-  <em>误差分布与预测一致性分析</em>
-</div>
-
-## 🏆 适用场景
-
-工作流可用于 CUMCM、MCM/ICM、APMCM、MathorCup、认证杯、数维杯等数学建模竞赛和一般建模项目。不同竞赛的页面、摘要、编号、页数和提交格式必须按当届官方要求配置。
-
-## 📂 仓库结构
-
-```text
-math-modeling-skill/
-├── VERSION
-├── SKILL.md
-├── README.md
-├── CHANGELOG.md
-├── assets/                         # 算法资料
-├── imgs/                           # README 示例图
-├── references/
-│   ├── README.md                   # 渐进式导航
-│   ├── 算法索引.md
-│   └── roles/
-│       ├── 建模手/
-│       ├── 编程手/
-│       └── 论文手/
-├── tools/                          # DOCX、LaTeX、PDF、XLSX、论文搜索
-├── dsh-plugin/                     # DeepSeek Harness 插件预设（独立分发）
-│   └── math-modeling-agent/        # Agent 预设：mm_* 工具 + 内置知识库
-└── tests/                          # 回归测试
-```
-
-## ✅ 验证
+## 验证
 
 ```bash
 python -m unittest discover -s tests -v
-python tools/docx/scripts/self_check.py
-python -m compileall -q tools references/roles/编程手/scripts
 ```
-
-回归测试覆盖双引擎搜索、公式转换、DOCX、LaTeX 模板与校验、Excel 重算、论文结构、动态依赖、复现清单和科学绘图工具。
-
-## 📋 版本与更新日志
-
-当前版本：[`1.3.0`](VERSION)
-
-`1.3.0` 完善算法资料与建模方法论，新增评阅人抓分方法论、求解稳健性、机器学习算法扩充，并补充交付与截止时间保护协议与 DeepSeek Harness 插件支持。详细内容见 [CHANGELOG.md](CHANGELOG.md)。
-
-采用语义化版本 `MAJOR.MINOR.PATCH`：
-
-- `MAJOR`：固定交付物、目录契约、命令参数或数据结构发生不兼容变化。
-- `MINOR`：增加向后兼容的新能力。
-- `PATCH`：向后兼容的错误修复、文档校正或测试补充。
-
-完整记录见 [CHANGELOG.md](CHANGELOG.md)。
-
-## ⭐ GitHub Star 历史
-
-<div align="center">
-
-[![GitHub Star 历史](imgs/star-history.svg)](https://github.com/XiaoMaColtAI/math-modeling-skill/stargazers)
-
-该图每日读取 GitHub 官方累计 Star 数自动更新；画布为 16:9，纵轴每 50 Star 一格，并在当前数值上方保留一个完整刻度。
-
-</div>
-
-## 🙏 致谢
-
-- [AnySearch Skill](https://github.com/anysearch-ai/anysearch-skill)：为学术垂直搜索提供参考。
-- [Nature Skills](https://github.com/Yuan1z0825/nature-skills)：为科学可视化与写作方法提供参考。
-- [SciPilot Figure Skill](https://github.com/Haojae/scipilot-figure-skill)：为数据剖析、图型决策、色觉可达性和成图自检闭环提供参考。
-
----
-
-<div align="center">
-
-**[算法索引](references/算法索引.md) · [使用文档](SKILL.md) · [角色说明](references/roles/) · [更新日志](CHANGELOG.md)**
-
-</div>
-
-
-## 👥 本 Fork：2026 三人团队编排扩展
-
-本 fork 在上游建模/编程/论文能力之上增加 `TEAM-SKILL.md`：三人 A-F 选题、Q1..QN 依赖 DAG、项目级动态模型路由、Git Handoff、异构 Python/MATLAB/GPU 执行和证据驱动进度答复。具体型号与 effort 服从项目 `AGENTS.md` 和模型路由文件；子代理不独立冻结关键模型，原 M1/P1/P2/W1/W2 独立门禁与人工决定不变。
-
-团队竞赛工作仓库为私有的 `condercx/huawei-cup-2026`。通过仓库内 one-clone bootstrap 安装此 Skill；不需要 DSH 或 AnySearch。`dsh-plugin/` 仅为此前版本兼容与历史资料，不是新队员部署要求。竞赛期间不要把真实题目、代码、结果或论文发到公共仓库。

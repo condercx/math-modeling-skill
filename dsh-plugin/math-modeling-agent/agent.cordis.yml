@@ -1,3 +1,6 @@
+# LEGACY / ARCHIVE ONLY: this DSH preset is not the current collaboration entrypoint.
+# Current rules: project AGENTS.md and the root SKILL.md / TEAM-SKILL.md.
+
 # The `standard` agent preset: the full coding agent, mounted once per process.
 #
 # This file is an AGENT-PLANE composition. The roster mounts it ONCE under a
@@ -103,6 +106,7 @@
 # v10: UI Dock 通过会话内粘贴提示词动态加载（不随预设挂载）。
 - id: math-modeling
   name: ./plugins/math-modeling.js
+  disabled: true
 
 # ── goals ───────────────────────────────────────────────────────────────────
 
